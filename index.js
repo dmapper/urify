@@ -5,7 +5,7 @@ var datauri = require('datauri')
 var escape = require('js-string-escape')
 
 module.exports = function (file, opts) {
-    if (/\.json$/.test(file)) return through()
+    if (!/\.js$/.test(file)) return through()
     if (module.exports.__emitter) return module.exports.__emitter(file, opts)
 
     if (!opts) opts = {}
@@ -19,7 +19,7 @@ module.exports = function (file, opts) {
         { vars: vars }
     )
     return sm
-    
+
     function urify(file) {
         var data = datauri(file)
         return "'"+escape(data)+"'"
